@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $channel_id
  * @property-read \Forum\Channel $channel
  * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereChannelId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread filter($filters)
  */
 class Thread extends Model {
 
@@ -55,5 +56,10 @@ class Thread extends Model {
     public function channel()
     {
     	return $this->belongsTo( Channel::class);
+    }
+
+    public function scopeFilter($query,$filters)
+    {
+    	return $filters->apply($query);
     }
 }

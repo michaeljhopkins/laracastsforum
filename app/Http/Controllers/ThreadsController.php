@@ -2,9 +2,9 @@
 
 namespace Forum\Http\Controllers;
 
+use Forum\Filters\ThreadFilters;
 use Forum\Channel;
 use Forum\Thread;
-use Forum\User;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -17,24 +17,20 @@ class ThreadsController extends Controller
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param Channel $channel
+	 * @param Channel       $channel
+	 *
+	 * @param ThreadFilters $filter
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-    public function index(Channel $channel)
+    public function index(Channel $channel, ThreadFilters $filter)
     {
-    	if($channel->exists){
+	    if ( $channel->exists ) {
 		    $threads = $channel->threads()->latest();
 	    } else {
 		    $threads = Thread::latest();
 	    }
-
-	    if($username = request('by')){
-    		$user = User::where('name',$username)->firstOrFail();
-
-		    $threads->where('user_id',$user->id);
-	    }
-	    $threads = $threads->get();
+	    $threads = $threads->filter($filter)->get();
         return view('threads.index',compact('threads'));
     }
 
@@ -114,4 +110,15 @@ class ThreadsController extends Controller
     {
         //
     }
+
+	/**
+	 * @param Channel $channel
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection|static|static[]
+	 */
+	public function getThreads( Channel $channel ) {
+
+
+		return $threads;
+	}
 }
