@@ -4,6 +4,7 @@ namespace Forum\Http\Controllers;
 
 use Forum\Channel;
 use Forum\Thread;
+use Forum\User;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -23,10 +24,17 @@ class ThreadsController extends Controller
     public function index(Channel $channel)
     {
     	if($channel->exists){
-    		$threads = $channel->threads()->latest()->get();
+		    $threads = $channel->threads()->latest();
 	    } else {
-		    $threads = Thread::latest()->get();
+		    $threads = Thread::latest();
 	    }
+
+	    if($username = request('by')){
+    		$user = User::where('name',$username)->firstOrFail();
+
+		    $threads->where('user_id',$user->id);
+	    }
+	    $threads = $threads->get();
         return view('threads.index',compact('threads'));
     }
 
