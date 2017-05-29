@@ -23,12 +23,7 @@ class ThreadsController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index( Channel $channel, ThreadFilters $filter ) {
-		if ( $channel->exists ) {
-			$threads = $channel->threads()->latest();
-		} else {
-			$threads = Thread::latest();
-		}
-		$threads = $threads->filter( $filter )->get();
+		$threads = $this->getThreads( $channel, $filter );
 
 		return view( 'threads.index', compact( 'threads' ) );
 	}
@@ -111,12 +106,19 @@ class ThreadsController extends Controller {
 	}
 
 	/**
-	 * @param Channel $channel
+	 * @param Channel       $channel
+	 * @param ThreadFilters $filter
 	 *
-	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection|static|static[]
+	 * @return Thread|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection|static[]
 	 */
-	public function getThreads( Channel $channel ) {
+	public function getThreads( Channel $channel, ThreadFilters $filter ) {
+		$threads = Thread::latest()->filter( $filter );
 
+		if ( $channel->exists ) {
+			$threads->where( 'channel_id', $channel->id );
+		}
+
+		$threads = $threads->get();
 
 		return $threads;
 	}
