@@ -39,4 +39,9 @@ class Reply extends Model {
 	public function favorite() {
 		$this->favorites()->firstOrCreate(['user_id' => auth()->id()]);
 	}
+
+	public function isFavorited()
+	{
+		return $this->favorites()->where('user_id',auth()->id())->exists();
+	}
 }
