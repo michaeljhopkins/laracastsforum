@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereUserId($value)
  * @property-read \Forum\User $creator
  * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Reply[] $replies
+ * @property int $channel_id
+ * @property-read \Forum\Channel $channel
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereChannelId($value)
  */
 class Thread extends Model {
 

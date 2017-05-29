@@ -58,7 +58,7 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                @foreach(\Forum\Channel::all() as $c)
+                                @foreach($channels as $c)
                                     <li>
                                         <a href="/threads/{{$c->slug}}">
                                             {{$c->name}}

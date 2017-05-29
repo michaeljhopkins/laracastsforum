@@ -181,6 +181,7 @@ return [
         // Forum\Providers\BroadcastServiceProvider::class,
         Forum\Providers\EventServiceProvider::class,
         Forum\Providers\RouteServiceProvider::class,
+	    Forum\Providers\ViewServiceProvider::class,
 
     ],
 
