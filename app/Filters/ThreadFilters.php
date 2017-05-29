@@ -12,7 +12,7 @@ use Forum\User;
 
 class ThreadFilters extends Filters {
 
-	protected $filters = [ 'by' ];
+	protected $filters = ['by','popularity'];
 
 	/**
 	 * Filters the query by the given username
@@ -25,5 +25,14 @@ class ThreadFilters extends Filters {
 		$user = User::whereName( $username )->firstOrFail();
 
 		return $this->builder->where( 'user_id', $user->id );
+	}
+
+	/**
+	 * Filters the query by the most popular threads
+	 */
+	public function popularity()
+	{
+		$this->builder->getQuery()->orders = [];
+		return $this->builder->orderBy('replies_count','desc');
 	}
 }
