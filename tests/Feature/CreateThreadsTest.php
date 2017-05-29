@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use function create;
 use Forum\Channel;
 use Forum\Thread;
-use Illuminate\Auth\AuthenticationException;
 use function make;
 use Tests\TestCase;
 
@@ -14,7 +12,7 @@ class CreateThreadsTest extends TestCase
 	/** @test */
 	function guests_may_not_create_threads() {
 		$this->withExceptionHandling();
-		$this->post( 'threads')
+		$this->post( '/threads')
 		     ->assertRedirect('/login');
 		$this->get( 'threads/create')
 		     ->assertRedirect('/login');
