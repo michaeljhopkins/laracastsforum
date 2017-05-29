@@ -119,7 +119,7 @@ class ThreadsController extends Controller {
 	 * @return Thread|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection|static[]
 	 */
 	public function getThreads( Channel $channel, ThreadFilters $filter ) {
-		$threads = Thread::with('channel')->latest()->filter( $filter );
+		$threads = Thread::latest()->filter( $filter );
 
 		if ( $channel->exists ) {
 			$threads->where( 'channel_id', $channel->id );
