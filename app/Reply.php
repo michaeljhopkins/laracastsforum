@@ -2,6 +2,7 @@
 
 namespace Forum;
 
+use Forum\Http\Controllers\FavoritesController;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,5 +29,14 @@ class Reply extends Model {
 
 	public function owner() {
 		return $this->belongsTo( User::class, 'user_id' );
+	}
+
+	public function favorites()
+	{
+		return $this->morphMany(Favorite::class,'favorited');
+	}
+
+	public function favorite() {
+		$this->favorites()->firstOrCreate(['user_id' => auth()->id()]);
 	}
 }
