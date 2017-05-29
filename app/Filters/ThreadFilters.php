@@ -12,10 +12,11 @@ use Forum\User;
 
 class ThreadFilters extends Filters {
 
-	protected $filters = ['by'];
+	protected $filters = [ 'by' ];
 
 	/**
 	 * Filters the query by the given username
+	 *
 	 * @param $username
 	 *
 	 * @return mixed

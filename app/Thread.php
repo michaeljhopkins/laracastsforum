@@ -8,24 +8,24 @@ use Illuminate\Database\Eloquent\Model;
  * Forum\Thread
  *
  * @mixin \Eloquent
- * @property int $id
- * @property int $user_id
- * @property string $title
- * @property string $body
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereBody($value)
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereUserId($value)
- * @property-read \Forum\User $creator
+ * @property int                                                          $id
+ * @property int                                                          $user_id
+ * @property string                                                       $title
+ * @property string                                                       $body
+ * @property \Carbon\Carbon                                               $created_at
+ * @property \Carbon\Carbon                                               $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereBody( $value )
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereCreatedAt( $value )
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereId( $value )
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereTitle( $value )
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereUpdatedAt( $value )
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereUserId( $value )
+ * @property-read \Forum\User                                             $creator
  * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Reply[] $replies
- * @property int $channel_id
- * @property-read \Forum\Channel $channel
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereChannelId($value)
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread filter($filters)
+ * @property int                                                          $channel_id
+ * @property-read \Forum\Channel                                          $channel
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereChannelId( $value )
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread filter( $filters )
  */
 class Thread extends Model {
 
@@ -38,28 +38,23 @@ class Thread extends Model {
 		return "/threads/{$this->channel->slug}/{$this->id}";
 	}
 
-	public function replies()
-	{
-		return $this->hasMany( Reply::class);
-    }
+	public function creator() {
+		return $this->belongsTo( User::class, 'user_id' );
+	}
 
-    public function creator()
-    {
-    	return $this->belongsTo( User::class,'user_id');
-    }
+	public function addReply( $reply ) {
+		$this->replies()->create( $reply );
+	}
 
-    public function addReply($reply)
-    {
-    	$this->replies()->create($reply);
-    }
+	public function replies() {
+		return $this->hasMany( Reply::class );
+	}
 
-    public function channel()
-    {
-    	return $this->belongsTo( Channel::class);
-    }
+	public function channel() {
+		return $this->belongsTo( Channel::class );
+	}
 
-    public function scopeFilter($query,$filters)
-    {
-    	return $filters->apply($query);
-    }
+	public function scopeFilter( $query, $filters ) {
+		return $filters->apply( $query );
+	}
 }

@@ -2,16 +2,15 @@
 
 namespace Forum\Http\Controllers;
 
-use Forum\Filters\ThreadFilters;
 use Forum\Channel;
+use Forum\Filters\ThreadFilters;
 use Forum\Thread;
 use Illuminate\Http\Request;
 
-class ThreadsController extends Controller
-{
+class ThreadsController extends Controller {
 
 	public function __construct() {
-		$this->middleware( 'auth' )->except(['index','show']);
+		$this->middleware( 'auth' )->except( [ 'index', 'show' ] );
 	}
 
 	/**
@@ -23,93 +22,93 @@ class ThreadsController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-    public function index(Channel $channel, ThreadFilters $filter)
-    {
-	    if ( $channel->exists ) {
-		    $threads = $channel->threads()->latest();
-	    } else {
-		    $threads = Thread::latest();
-	    }
-	    $threads = $threads->filter($filter)->get();
-        return view('threads.index',compact('threads'));
-    }
+	public function index( Channel $channel, ThreadFilters $filter ) {
+		if ( $channel->exists ) {
+			$threads = $channel->threads()->latest();
+		} else {
+			$threads = Thread::latest();
+		}
+		$threads = $threads->filter( $filter )->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('threads.create');
-    }
+		return view( 'threads.index', compact( 'threads' ) );
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-    	$this->validate( $request, [
-    		'title' => 'required',
-		    'body' => 'required',
-		    'channel_id' => 'required|exists:channels,id'
-	    ]);
-        $thread = Thread::create([
-        	'user_id' => auth()->id(),
-        	'title' => request('title'),
-	        'body' => request('body'),
-	        'channel_id' => request('channel_id')
-        ]);
-        return redirect($thread->path());
-    }
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function create() {
+		return view( 'threads.create' );
+	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \Forum\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function show($channelId,Thread $thread)
-    {
-        return view('threads.show',compact('thread'));
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store( Request $request ) {
+		$this->validate( $request, [
+			'title'      => 'required',
+			'body'       => 'required',
+			'channel_id' => 'required|exists:channels,id'
+		] );
+		$thread = Thread::create( [
+			'user_id'    => auth()->id(),
+			'title'      => request( 'title' ),
+			'body'       => request( 'body' ),
+			'channel_id' => request( 'channel_id' )
+		] );
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \Forum\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Thread $thread)
-    {
-        //
-    }
+		return redirect( $thread->path() );
+	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Forum\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Thread $thread)
-    {
-        //
-    }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  \Forum\Thread $thread
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show( $channelId, Thread $thread ) {
+		return view( 'threads.show', compact( 'thread' ) );
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Forum\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Thread $thread)
-    {
-        //
-    }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  \Forum\Thread $thread
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit( Thread $thread ) {
+		//
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @param  \Forum\Thread            $thread
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update( Request $request, Thread $thread ) {
+		//
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  \Forum\Thread $thread
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy( Thread $thread ) {
+		//
+	}
 
 	/**
 	 * @param Channel $channel
