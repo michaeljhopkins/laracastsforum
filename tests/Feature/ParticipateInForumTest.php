@@ -13,7 +13,7 @@ class ParticipateInForumTest extends TestCase
     /** @test */
     function an_authenticated_user_may_participate_in_forum_threads()
     {
-	    $this->signIn( $user = create( User::class ) );
+	    $this->signIn();
 	    $thread = create( Thread::class );
 	    $reply  = make( Reply::class );
     	$this->post($thread->path().'/replies',$reply->toArray());
