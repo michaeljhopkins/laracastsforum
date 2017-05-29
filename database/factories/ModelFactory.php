@@ -12,10 +12,19 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+use Forum\Channel;
 use Forum\User;
 use Forum\Thread;
 use Forum\Reply;
 
+$factory->define( Channel::class, function (Faker\Generator $faker) {
+	$name = $faker->word;
+	return [
+		'name' => $name,
+		'slug' => $name
+	];
+});
 $factory->define(User::class, function (Faker\Generator $faker) {
     static $password;
 
@@ -31,6 +40,9 @@ $factory->define( Thread::class, function (Faker\Generator $faker) {
 	return [
 		'user_id' => function(){
 			return factory(User::class)->create()->id;
+		},
+		'channel_id' => function(){
+			return factory(Channel::class)->create()->id;
 		},
 		'title' => $faker->sentence,
 		'body' => $faker->paragraph

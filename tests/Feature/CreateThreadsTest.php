@@ -13,7 +13,7 @@ class CreateThreadsTest extends TestCase
 	function an_authenticated_user_can_create_forum_threads()
 	{
 		$this->signIn();
-		$thread = make( Thread::class );
+		$thread = create( Thread::class );
 		$this->post( '/threads',$thread->toArray());
 		$this->get( $thread->path())
 		     ->assertSee( $thread->title )
@@ -22,16 +22,11 @@ class CreateThreadsTest extends TestCase
 
 	/** @test */
 	function guests_may_not_create_threads() {
-		$this->expectException( AuthenticationException::class );
-		$thread = make( Thread::class );
-		$this->post( '/threads', $thread->toArray() );
-	}
+		$this->withExceptionHandling();
 
-	/** @test */
-	function guests_cannot_see_the_create_thread_page()
-	{
-		$this->withExceptionHandling()
-		     ->get( 'threads/create')
+		$this->post( 'threads')
+		     ->assertRedirect('/login');
+		$this->get( 'threads/create')
 		     ->assertRedirect('/login');
 	}
 }
