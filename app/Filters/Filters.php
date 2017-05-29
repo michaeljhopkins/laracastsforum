@@ -8,6 +8,7 @@
 
 namespace Forum\Filters;
 
+use function collect;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use function method_exists;
@@ -37,16 +38,17 @@ abstract class Filters {
 
 		$this->builder = $builder;
 
-		foreach ( $this->getFilters() as $filter => $value ) {
-			if ( method_exists( $this, $filter ) ) {
-				$this->$filter( $value );
-			}
-		}
+		$this->getFilters()
+		     ->filter(function($filter){
+		     	return method_exists($this,$filter);
+		     })->each(function($filter,$value){
+		     	$this->$filter($value);
+		     });
 
 		return $this->builder;
 	}
 
 	public function getFilters() {
-		return $this->request->intersect( $this->filters );
+		return collect($this->request->intersect( $this->filters ))->flip();
 	}
 }
