@@ -1,0 +1,16 @@
+/public/storage
+Homestead.yaml
+Homestead.json
+.env
+.sonar
+.vagrant
+.idea
+vendor
+node_modules
+.phpintel
+*/.phpintel*
+/node_modules
+/public/hot
+/storage/*.key
+/.vagrant
+npm-debug.log
