@@ -5,19 +5,16 @@ namespace Tests\Unit;
 use Forum\Thread;
 use Forum\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class ThreadTest extends TestCase
 {
-	use DatabaseMigrations;
-
 	protected $thread;
 
 	public function setUp()
 	{
 		parent::setUp();
-		$this->thread = factory(Thread::class)->create();
+		$this->thread = create( Thread::class );
 	}
 
 	/** @test */
