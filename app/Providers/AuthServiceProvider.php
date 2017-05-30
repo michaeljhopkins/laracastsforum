@@ -4,25 +4,26 @@ namespace Forum\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
-class AuthServiceProvider extends ServiceProvider {
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        'Forum\Model' => 'Forum\Policies\ModelPolicy',
+    ];
 
-	/**
-	 * The policy mappings for the application.
-	 *
-	 * @var array
-	 */
-	protected $policies = [
-		'Forum\Model' => 'Forum\Policies\ModelPolicy',
-	];
+    /**
+     * Register any authentication / authorization services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerPolicies();
 
-	/**
-	 * Register any authentication / authorization services.
-	 *
-	 * @return void
-	 */
-	public function boot() {
-		$this->registerPolicies();
-
-		//
-	}
+        //
+    }
 }

@@ -5,7 +5,7 @@ namespace Forum;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Forum\Thread
+ * Forum\Thread.
  *
  * @mixin \Eloquent
  * @property int                                                          $id
@@ -27,54 +27,60 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereChannelId( $value )
  * @method static \Illuminate\Database\Query\Builder|\Forum\Thread filter( $filters )
  */
-class Thread extends Model {
+class Thread extends Model
+{
+    protected $guarded = [];
 
-	protected $guarded = [];
+    protected $with = ['creator', 'channel'];
 
-	protected $with = ['creator','channel'];
+    protected static function boot()
+    {
+        parent::boot();
 
-	protected static function boot()
-	{
-		parent::boot();
+        static::addGlobalScope('replyCount', function ($builder) {
+            $builder->withCount('replies');
+        });
 
-		static::addGlobalScope('replyCount', function($builder){
-			$builder->withCount('replies');
-		});
+        static::deleting(function ($t) {
+            $t->replies()->delete();
+        });
+    }
 
-		static::deleting(function($t){
-			$t->replies()->delete();
-		});
-	}
+    /**
+     * @return string
+     */
+    public function path()
+    {
+        return "/threads/{$this->channel->slug}/{$this->id}";
+    }
 
-	/**
-	 * @return string
-	 */
-	public function path() {
-		return "/threads/{$this->channel->slug}/{$this->id}";
-	}
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
-	public function creator() {
-		return $this->belongsTo( User::class, 'user_id' );
-	}
+    public function addReply($reply)
+    {
+        $this->replies()->create($reply);
+    }
 
-	public function addReply( $reply ) {
-		$this->replies()->create( $reply );
-	}
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 
-	public function replies() {
-		return $this->hasMany( Reply::class );
-	}
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class);
+    }
 
-	public function channel() {
-		return $this->belongsTo( Channel::class );
-	}
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
+    }
 
-	public function scopeFilter( $query, $filters ) {
-		return $filters->apply( $query );
-	}
-
-	public function getReplyCountAttribute()
-	{
-		return $this->replies()->count();
-	}
+    public function getReplyCountAttribute()
+    {
+        return $this->replies()->count();
+    }
 }

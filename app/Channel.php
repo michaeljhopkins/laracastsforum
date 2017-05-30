@@ -5,7 +5,7 @@ namespace Forum;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Forum\Channel
+ * Forum\Channel.
  *
  * @property int                                                           $id
  * @property string                                                        $name
@@ -20,13 +20,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\Forum\Channel whereUpdatedAt( $value )
  * @mixin \Eloquent
  */
-class Channel extends Model {
+class Channel extends Model
+{
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
-	public function getRouteKeyName() {
-		return 'slug';
-	}
-
-	public function threads() {
-		return $this->hasMany( Thread::class );
-	}
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
+    }
 }

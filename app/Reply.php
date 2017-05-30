@@ -2,11 +2,10 @@
 
 namespace Forum;
 
-use Forum\Http\Controllers\FavoritesController;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Forum\Reply
+ * Forum\Reply.
  *
  * @mixin \Eloquent
  * @property int              $id
@@ -23,16 +22,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\Forum\Reply whereUserId( $value )
  * @property-read \Forum\User $owner
  */
-class Reply extends Model {
+class Reply extends Model
+{
+    use Favoritable;
 
-	use Favoritable;
+    protected $guarded = [];
 
-	protected $guarded = [];
+    protected $with = ['owner', 'favorites'];
 
-	protected $with = ['owner','favorites'];
-
-	public function owner() {
-		return $this->belongsTo( User::class, 'user_id' );
-	}
-
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

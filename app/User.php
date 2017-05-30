@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * Forum\User
+ * Forum\User.
  *
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[]
  *                $notifications
@@ -33,37 +33,38 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\Forum\User whereRememberToken( $value )
  * @method static \Illuminate\Database\Query\Builder|\Forum\User whereUpdatedAt( $value )
  */
-class User extends Authenticatable {
+class User extends Authenticatable
+{
+    use Notifiable;
 
-	use Notifiable;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = [
-		'name',
-		'email',
-		'password',
-	];
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-	/**
-	 * The attributes that should be hidden for arrays.
-	 *
-	 * @var array
-	 */
-	protected $hidden = [
-		'password',
-		'remember_token',
-	];
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 
-	public function getRouteKeyName() {
-		return 'name';
-	}
-
-	public function threads()
-	{
-		return $this->hasMany( Thread::class)->latest();
-	}
+    public function threads()
+    {
+        return $this->hasMany(Thread::class)->latest();
+    }
 }

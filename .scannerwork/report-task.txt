@@ -1,0 +1,5 @@
+projectKey=org.laracasts:forum
+serverUrl=http://localhost:9000
+dashboardUrl=http://localhost:9000/dashboard/index/org.laracasts:forum
+ceTaskId=AVxXqebVkdCkLgDgOa4s
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVxXqebVkdCkLgDgOa4s
