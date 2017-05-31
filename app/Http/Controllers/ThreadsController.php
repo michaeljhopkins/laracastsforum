@@ -6,6 +6,7 @@ use Forum\Channel;
 use Forum\Filters\ThreadFilters;
 use Forum\Thread;
 use Illuminate\Http\Request;
+use function redirect;
 
 class ThreadsController extends Controller
 {
@@ -20,7 +21,6 @@ class ThreadsController extends Controller
         if (request()->wantsJson()) {
             return $threads;
         }
-
         return view('threads.index', compact('threads'));
     }
 
@@ -42,7 +42,6 @@ class ThreadsController extends Controller
             'body'       => request('body'),
             'channel_id' => request('channel_id'),
         ]);
-
         return redirect($thread->path());
     }
 
@@ -56,9 +55,12 @@ class ThreadsController extends Controller
 
     public function destroy($channel, Thread $thread)
     {
+    	$this->authorize('delete',$thread);
         $thread->delete();
-
-        return response([], 204);
+	    if(request()->wantsJson()) {
+		    return response( [], 204 );
+	    }
+	    return redirect('/threads');
     }
 
     public function getThreads(Channel $channel, ThreadFilters $filter)
@@ -67,7 +69,6 @@ class ThreadsController extends Controller
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
         }
-
         return $threads->get();
     }
 }
