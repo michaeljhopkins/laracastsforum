@@ -2,6 +2,7 @@
 
 namespace Forum;
 
+use Forum\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -30,23 +31,20 @@ use Illuminate\Database\Eloquent\Model;
 class Thread extends Model
 {
     protected $guarded = [];
-
     protected $with = ['creator', 'channel'];
-
+    use RecordsActivity;
     protected static function boot()
     {
         parent::boot();
-
         static::addGlobalScope('replyCount', function ($builder) {
             $builder->withCount('replies');
         });
-
         static::deleting(function ($t) {
             $t->replies()->delete();
         });
     }
 
-    /**
+	/**
      * @return string
      */
     public function path()
@@ -83,4 +81,5 @@ class Thread extends Model
     {
         return $this->replies()->count();
     }
+
 }

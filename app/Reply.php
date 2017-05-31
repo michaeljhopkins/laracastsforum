@@ -2,6 +2,7 @@
 
 namespace Forum;
 
+use Forum\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Reply extends Model
 {
-    use Favoritable;
+    use Favoritable, RecordsActivity;
 
     protected $guarded = [];
 
