@@ -2,6 +2,7 @@
 
 use Barryvdh\Debugbar\ServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Orangehill\Iseed\IseedServiceProvider;
 
 return [
 
@@ -172,6 +173,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         IdeHelperServiceProvider::class,
         ServiceProvider::class,
+	    IseedServiceProvider::class,
 
         /*
          * Application Service Providers...

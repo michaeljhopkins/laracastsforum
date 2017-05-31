@@ -11,6 +11,7 @@
         "doctrine/dbal": "^2.5",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "orangehill/iseed": "^2.4",
         "spatie/laravel-migrate-fresh": "^1.4"
     },
     "require-dev": {
