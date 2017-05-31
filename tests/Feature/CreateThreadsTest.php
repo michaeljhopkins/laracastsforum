@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use function create;
+use Forum\Activity;
 use Forum\Channel;
 use Forum\Reply;
 use Forum\Thread;
@@ -79,5 +80,6 @@ class CreateThreadsTest extends TestCase
 		$response->assertStatus(204);
 		$this->assertDatabaseMissing('threads',['id'=>$thread->id]);
 		$this->assertDatabaseMissing('replies',['id'=>$reply->id]);
+		$this->assertEquals(0, Activity::count());
 	}
 }

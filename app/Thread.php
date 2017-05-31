@@ -27,12 +27,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Forum\Channel                                          $channel
  * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereChannelId( $value )
  * @method static \Illuminate\Database\Query\Builder|\Forum\Thread filter( $filters )
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Activity[] $activity
+ * @property-read mixed $reply_count
  */
 class Thread extends Model
 {
+	use RecordsActivity;
     protected $guarded = [];
     protected $with = ['creator', 'channel'];
-    use RecordsActivity;
     protected static function boot()
     {
         parent::boot();
@@ -40,7 +42,7 @@ class Thread extends Model
             $builder->withCount('replies');
         });
         static::deleting(function ($t) {
-            $t->replies()->delete();
+            $t->replies->each->delete();
         });
     }
 

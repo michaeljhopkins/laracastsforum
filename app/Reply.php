@@ -22,6 +22,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\Forum\Reply whereUpdatedAt( $value )
  * @method static \Illuminate\Database\Query\Builder|\Forum\Reply whereUserId( $value )
  * @property-read \Forum\User $owner
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Activity[] $activity
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Favorite[] $favorites
+ * @property-read mixed $favorites_count
+ * @property-read \Forum\Thread $thread
  */
 class Reply extends Model
 {

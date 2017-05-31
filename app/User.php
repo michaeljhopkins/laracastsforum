@@ -32,6 +32,8 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\Forum\User wherePassword( $value )
  * @method static \Illuminate\Database\Query\Builder|\Forum\User whereRememberToken( $value )
  * @method static \Illuminate\Database\Query\Builder|\Forum\User whereUpdatedAt( $value )
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Activity[] $activity
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Thread[] $threads
  */
 class User extends Authenticatable
 {
