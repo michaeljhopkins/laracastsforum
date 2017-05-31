@@ -11,7 +11,7 @@ use Forum\User;
 
 class ThreadFilters extends Filters
 {
-    protected $filters = ['by', 'popularity'];
+    protected $filters = ['by', 'popularity','unanswered'];
 
     /**
      * Filters the query by the given username.
@@ -35,5 +35,10 @@ class ThreadFilters extends Filters
         $this->builder->getQuery()->orders = [];
 
         return $this->builder->orderBy('replies_count', 'desc');
+    }
+
+    public function unanswered()
+    {
+    	return $this->builder->where('replies_count',0);
     }
 }

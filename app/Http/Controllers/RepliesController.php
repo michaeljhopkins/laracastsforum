@@ -2,13 +2,14 @@
 
 namespace Forum\Http\Controllers;
 
+use Forum\Reply;
 use Forum\Thread;
 
 class RepliesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+	    $this->middleware('auth', ['except' => 'index']);
     }
 
     public function store($channelId, Thread $thread)
@@ -23,4 +24,30 @@ class RepliesController extends Controller
 
         return back();
     }
+	/**
+	 * Update an existing reply.
+	 *
+	 * @param Reply $reply
+	 */
+	public function update(Reply $reply)
+	{
+		$this->authorize('update', $reply);
+		$this->validate(request(), ['body' => 'required']);
+		$reply->update(request(['body']));
+	}
+	/**
+	 * Delete the given reply.
+	 *
+	 * @param  Reply $reply
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function destroy(Reply $reply)
+	{
+		$this->authorize('update', $reply);
+		$reply->delete();
+		if (request()->expectsJson()) {
+			return response(['status' => 'Reply deleted']);
+		}
+		return back();
+	}
 }

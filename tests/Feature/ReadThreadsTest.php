@@ -48,7 +48,6 @@ class ReadThreadsTest extends TestCase
 		$channel = create(Channel::class);
 		$threadInChannel = create( Thread::class,['channel_id' => $channel->id]);
 		$threadNotInChannel = create( Thread::class);
-
 		$this->get( '/threads/'.$channel->slug)
 			->assertSee( $threadInChannel->title)
 			->assertDontSee( $threadNotInChannel->title);
@@ -58,14 +57,11 @@ class ReadThreadsTest extends TestCase
 	function a_user_can_filter_threads_by_any_username()
 	{
 		$this->signIn(create(User::class,['name' => 'JohnDoe']));
-
 		$threadByJohn = create(Thread::class,['user_id' => auth()->id()]);
 		$threadByNotJohn = create(Thread::class);
-
 		$this->get( 'threads?by=JohnDoe')
 			->assertSee( $threadByJohn->title)
 			->assertDontSee( $threadByNotJohn->title);
-
 	}
 
 	/** @test */
@@ -75,10 +71,16 @@ class ReadThreadsTest extends TestCase
 		create(Reply::class,['thread_id' => $threadWith2Replies->id],2);
 		$threadWith3Replies = create(Thread::class);
 		create(Reply::class,['thread_id' => $threadWith3Replies->id],3);
-		$threadWith0Replies = $this->thread;
-
 		$response = $this->getJson('threads?popularity=1')->json();
-
 		$this->assertEquals([3,2,0],array_column($response,'replies_count'));
+	}
+
+	/** @test */
+	function a_user_can_filter_threads_by_those_that_are_unanswered()
+	{
+		$thread = create(Thread::class);
+		create(Reply::class,['thread_id' => $thread->id]);
+		$response = $this->getJson('threads?unanswered=1')->json();
+		$this->assertCount(1,$response);
 	}
 }

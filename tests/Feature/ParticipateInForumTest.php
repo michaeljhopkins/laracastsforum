@@ -25,8 +25,8 @@ class ParticipateInForumTest extends TestCase
 	    $thread = create( Thread::class );
 	    $reply  = make( Reply::class );
     	$this->post($thread->path().'/replies',$reply->toArray());
-    	$this->get($thread->path())
-		    ->assertSee( $reply->body);
+    	$this->assertDatabaseHas( 'replies', ['body' => $reply->body]);
+    	$this->assertEquals( 1, $thread->fresh()->replies_count);
     }
 
     /** @test */

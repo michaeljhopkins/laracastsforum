@@ -2,7 +2,9 @@
 
 namespace Forum\Providers;
 
+use Forum\Policies\ReplyPolicy;
 use Forum\Policies\ThreadPolicy;
+use Forum\Reply;
 use Forum\Thread;
 use Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -15,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Thread::class => ThreadPolicy::class
+        Thread::class => ThreadPolicy::class,
+	    Reply::class => ReplyPolicy::class,
     ];
 
     /**
