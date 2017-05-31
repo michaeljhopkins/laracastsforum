@@ -5,6 +5,6 @@
     @endslot
 
     @slot('body')
-        {{ $a->subject->type }}
+        {{ $a->subject->body }}
     @endslot
 @endcomponent
