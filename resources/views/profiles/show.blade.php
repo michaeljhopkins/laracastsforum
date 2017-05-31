@@ -10,27 +10,14 @@
                         <small>Since {{ $profileUser->created_at->diffForHumans() }}</small>
                     </h1>
                 </div>
-                @foreach($activities as $a)
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="level">
-                                <span class="flex">
-                                    <a href="{{--route('profile',$thread->creator)--}}">{{--$thread->creator->name--}}</a> posted:
-                                    <a href="{{--$thread->path()--}}">{{-- $thread->title --}}</a>
-                                </span>
-                                <span>
-                                    {{-- $thread->created_at->diffForHumans() --}}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <div class="body">
-                                {{-- $thread->body --}}
-                            </div>
-                        </div>
+                @foreach($activities as $date => $activity)
+                    <div class="page-header">
+                        <h3>{{$date}}</h3>
                     </div>
+                    @foreach($activity as $a)
+                        @include("profiles.activities.$a->type")
+                    @endforeach
                 @endforeach
-                {{-- $threads->links() --}}
             </div>
         </div>
     </div>
