@@ -46,4 +46,25 @@ class ParticipateInThreadsTest extends TestCase
 		$this->delete("/replies/{$reply->id}");
 		$this->assertDatabaseMissing( 'replies', ['id' => $reply->id]);
 	}
+
+	/** @test */
+	function authed_users_can_edit_their_replies()
+	{
+		$this->signIn();
+		$reply = create(Reply::class,['user_id' => auth()->id()]);
+		$this->patch( "/replies/{$reply->id}",['body' => 'updated']);
+		$this->assertDatabaseHas( 'replies', ['id' => $reply->id,'body' => 'updated']);
+	}
+	/** @test */
+	function unauthed_users_cannot_edit_replies()
+	{
+		$this->withExceptionHandling();
+		$reply = create(Reply::class);
+		$this->patch("/replies/{$reply->id}")
+		     ->assertRedirect('/login');
+
+		$this->signIn()
+			->patch("/replies/{$reply->id}")
+			->assertStatus(403);
+	}
 }
