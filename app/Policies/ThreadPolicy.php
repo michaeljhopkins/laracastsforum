@@ -21,18 +21,6 @@ class ThreadPolicy
 	{
 		return $thread->user_id == $user->id;
 	}
-
-	/**
-	 * Determine whether the user can delete the thread.
-	 *
-	 * @param  \Forum\User  $user
-	 * @param  \Forum\Thread  $thread
-	 * @return mixed
-	 */
-	public function delete(User $user, Thread $thread)
-	{
-		return $thread->user_id == $user->id;
-	}
     //
     ///**
     // * Determine whether the user can view the thread.
