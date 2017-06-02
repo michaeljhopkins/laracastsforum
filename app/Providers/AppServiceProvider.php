@@ -2,9 +2,12 @@
 
 namespace Forum\Providers;
 
+use App;
+use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Cache;
 use Forum\Channel;
 use Illuminate\Support\ServiceProvider;
+use Orangehill\Iseed\IseedServiceProvider;
 use View;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
             });
             $view->with('channels', $channels);
         });
+
+        if(App::environment() == 'local'){
+	        $this->app->register(IdeHelperServiceProvider::class);
+	        $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+	        $this->app->register(IseedServiceProvider::class);
+        }
     }
 
     /**

@@ -171,9 +171,6 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        IdeHelperServiceProvider::class,
-        ServiceProvider::class,
-	    IseedServiceProvider::class,
 
         /*
          * Application Service Providers...
