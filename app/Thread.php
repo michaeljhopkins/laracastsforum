@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\Forum\Thread filter( $filters )
  * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Activity[] $activity
  * @property-read mixed $reply_count
+ * @property int $replies_count
+ * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereRepliesCount($value)
  */
 class Thread extends Model
 {

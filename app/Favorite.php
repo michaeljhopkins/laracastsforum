@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\Forum\Favorite whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Forum\Favorite whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Activity[] $activity
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $favorited
  */
 class Favorite extends Model
 {
