@@ -1,52 +1,51 @@
 <?php
 
-namespace Forum;
+namespace App;
 
-use Forum\Traits\RecordsActivity;
+use App\Filters\ThreadFilters;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use \Forum\ThreadSubscription;
 
-/**
- * Forum\Thread.
- *
- * @mixin \Eloquent
- * @property int                                                          $id
- * @property int                                                          $user_id
- * @property string                                                       $title
- * @property string                                                       $body
- * @property \Carbon\Carbon                                               $created_at
- * @property \Carbon\Carbon                                               $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereBody( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereCreatedAt( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereId( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereTitle( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereUpdatedAt( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereUserId( $value )
- * @property-read \Forum\User                                             $creator
- * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Reply[] $replies
- * @property int                                                          $channel_id
- * @property-read \Forum\Channel                                          $channel
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereChannelId( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread filter( $filters )
- * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Activity[] $activity
- * @property-read mixed $reply_count
- * @property int $replies_count
- * @method static \Illuminate\Database\Query\Builder|\Forum\Thread whereRepliesCount($value)
- */
 class Thread extends Model
 {
-	use RecordsActivity;
+    use RecordsActivity;
+
+    /**
+     * Don't auto-apply mass assignment protection.
+     *
+     * @var array
+     */
     protected $guarded = [];
+
+    /**
+     * The relationships to always eager-load.
+     *
+     * @var array
+     */
     protected $with = ['creator', 'channel'];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['isSubscribedTo'];
+
+    /**
+     * Boot the model.
+     */
     protected static function boot()
     {
         parent::boot();
-        static::deleting(function ($t) {
-            $t->replies->each->delete();
+
+        static::deleting(function ($thread) {
+            $thread->replies->each->delete();
         });
     }
 
-	/**
+    /**
+     * Get a string path for the thread.
+     *
      * @return string
      */
     public function path()
@@ -54,36 +53,64 @@ class Thread extends Model
         return "/threads/{$this->channel->slug}/{$this->id}";
     }
 
+    /**
+     * A thread belongs to a creator.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function addReply($reply)
-    {
-        $this->replies()->create($reply);
-    }
-
-    public function replies()
-    {
-        return $this->hasMany(Reply::class);
-    }
-
+    /**
+     * A thread is assigned a channel.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function channel()
     {
         return $this->belongsTo(Channel::class);
     }
 
-    public function scopeFilter($query, $filters)
+    /**
+     * A thread may have many replies.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
+    /**
+     * Add a reply to the thread.
+     *
+     * @param  array $reply
+     * @return Model
+     */
+    public function addReply($reply)
+    {
+        return $this->replies()->create($reply);
+    }
+
+    /**
+     * Apply all relevant thread filters.
+     *
+     * @param  Builder       $query
+     * @param  ThreadFilters $filters
+     * @return Builder
+     */
+    public function scopeFilter($query, ThreadFilters $filters)
     {
         return $filters->apply($query);
     }
 
-    public function getReplyCountAttribute()
-    {
-        return $this->replies()->count();
-    }
-
+    /**
+     * Subscribe a user to the current thread.
+     *
+     * @param int|null $userId
+     */
     public function subscribe($userId = null)
     {
         $this->subscriptions()->create([
@@ -91,15 +118,37 @@ class Thread extends Model
         ]);
     }
 
+    /**
+     * Unsubscribe a user from the current thread.
+     *
+     * @param int|null $userId
+     */
     public function unsubscribe($userId = null)
     {
         $this->subscriptions()
-            ->whereUserId($userId ?: auth()->id())
+            ->where('user_id', $userId ?: auth()->id())
             ->delete();
     }
 
+    /**
+     * A thread can have many subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function subscriptions()
     {
         return $this->hasMany(ThreadSubscription::class);
+    }
+
+    /**
+     * Determine if the current user is subscribed to the thread.
+     *
+     * @return boolean
+     */
+    public function getIsSubscribedToAttribute()
+    {
+        return $this->subscriptions()
+            ->where('user_id', auth()->id())
+            ->exists();
     }
 }

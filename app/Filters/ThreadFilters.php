@@ -1,44 +1,50 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: michaelhopkins
- * Date: 5/29/17
- * Time: 7:16 AM.
- */
-namespace Forum\Filters;
 
-use Forum\User;
+namespace App\Filters;
+
+use App\User;
 
 class ThreadFilters extends Filters
 {
-    protected $filters = ['by', 'popularity','unanswered'];
+    /**
+     * Registered filters to operate upon.
+     *
+     * @var array
+     */
+    protected $filters = ['by', 'popular', 'unanswered'];
 
     /**
-     * Filters the query by the given username.
+     * Filter the query by a given username.
      *
-     * @param $username
-     *
-     * @return mixed
+     * @param  string $username
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function by($username)
+    protected function by($username)
     {
-        $user = User::whereName($username)->firstOrFail();
+        $user = User::where('name', $username)->firstOrFail();
 
         return $this->builder->where('user_id', $user->id);
     }
 
     /**
-     * Filters the query by the most popular threads.
+     * Filter the query according to most popular threads.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function popularity()
+    protected function popular()
     {
         $this->builder->getQuery()->orders = [];
 
         return $this->builder->orderBy('replies_count', 'desc');
     }
 
-    public function unanswered()
+    /**
+     * Filter the query according to those that are unanswered.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function unanswered()
     {
-    	return $this->builder->where('replies_count',0);
+        return $this->builder->where('replies_count', 0);
     }
 }

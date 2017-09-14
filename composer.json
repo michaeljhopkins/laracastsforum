@@ -1,44 +1,33 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
+    "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "doctrine/dbal": "^2.5",
+        "barryvdh/laravel-debugbar": "^2.3",
         "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0",
-        "predis/predis": "^1.1",
-        "spatie/laravel-migrate-fresh": "^1.4"
+        "laravel/tinker": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7",
-        "sllh/php-cs-fixer-styleci-bridge": "^2.1",
-        "barryvdh/laravel-debugbar": "v2.3.2",
-        "barryvdh/laravel-ide-helper": "v2.3.2",
-        "orangehill/iseed": "v2.4"
+        "phpunit/phpunit": "~5.7"
     },
     "autoload": {
         "classmap": [
             "database"
         ],
         "psr-4": {
-            "Forum\\": "app/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
         },
-        "files": [
-            "tests/Utilities/helpers.php"
-        ]
+        "files": ["tests/utilities/functions.php"]
     },
     "scripts": {
         "post-root-package-install": [

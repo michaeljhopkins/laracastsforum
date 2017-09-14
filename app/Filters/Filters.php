@@ -1,29 +1,32 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: michaelhopkins
- * Date: 5/29/17
- * Time: 7:26 AM.
- */
-namespace Forum\Filters;
 
-use Illuminate\Database\Query\Builder;
+namespace App\Filters;
+
 use Illuminate\Http\Request;
 
 abstract class Filters
 {
-    protected $filters = [];
     /**
      * @var Request
      */
     protected $request;
+
     /**
-     * @var Builder
+     * The Eloquent builder.
+     *
+     * @var \Illuminate\Database\Eloquent\Builder
      */
     protected $builder;
 
     /**
-     * ThreadFilters constructor.
+     * Registered filters to operate upon.
+     *
+     * @var array
+     */
+    protected $filters = [];
+
+    /**
+     * Create a new ThreadFilters instance.
      *
      * @param Request $request
      */
@@ -32,22 +35,32 @@ abstract class Filters
         $this->request = $request;
     }
 
+    /**
+     * Apply the filters.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function apply($builder)
     {
         $this->builder = $builder;
 
-        $this->getFilters()
-             ->filter(function ($filter) {
-                 return method_exists($this, $filter);
-             })->each(function ($filter, $value) {
-                 $this->$filter($value);
-             });
+        foreach ($this->getFilters() as $filter => $value) {
+            if (method_exists($this, $filter)) {
+                $this->$filter($value);
+            }
+        }
 
         return $this->builder;
     }
 
+    /**
+     * Fetch all relevant filters from the request.
+     *
+     * @return array
+     */
     public function getFilters()
     {
-        return collect($this->request->intersect($this->filters))->flip();
+        return $this->request->intersect($this->filters);
     }
 }

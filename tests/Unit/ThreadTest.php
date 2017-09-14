@@ -2,75 +2,101 @@
 
 namespace Tests\Unit;
 
-use function create;
-use Forum\Thread;
-use Forum\User;
-use Forum\Channel;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class ThreadTest extends TestCase
 {
-	protected $thread;
+    use DatabaseMigrations;
 
-	public function setUp()
-	{
-		parent::setUp();
-		$this->thread = create( Thread::class );
-	}
+    protected $thread;
 
-	/** @test */
-	function a_thread_has_a_creator()
-	{
-		$this->assertInstanceOf( User::class, $this->thread->creator);
-	}
-
-	/** @test */
-	function a_thread_has_replies()
+    public function setUp()
     {
-    	$this->assertInstanceOf( Collection::class, $this->thread->replies);
-    }
-    /** @test */
-    function a_thread_belongs_to_a_channel()
-    {
-    	$thread = create( Thread::class);
+        parent::setUp();
 
-    	$this->assertInstanceOf( Channel::class, $thread->channel);
-    }
-    /** @test */
-    public function a_thread_can_add_a_reply()
-    {
-    	$this->thread->addReply([
-    		'body' => 'Foobar',
-		    'user_id' => 1
-	    ]);
-
-    	$this->assertCount( 1, $this->thread->replies);
+        $this->thread = create('App\Thread');
     }
 
     /** @test */
     function a_thread_can_make_a_string_path()
     {
-    	$thread = create(Thread::class);
-    	$this->assertEquals( "/threads/{$thread->channel->slug}/{$thread->id}", $thread->path());
+        $thread = create('App\Thread');
+
+        $this->assertEquals(
+            "/threads/{$thread->channel->slug}/{$thread->id}", $thread->path()
+        );
+    }
+
+    /** @test */
+    function a_thread_has_a_creator()
+    {
+        $this->assertInstanceOf('App\User', $this->thread->creator);
+    }
+
+    /** @test */
+    function a_thread_has_replies()
+    {
+        $this->assertInstanceOf(
+            'Illuminate\Database\Eloquent\Collection', $this->thread->replies
+        );
+    }
+
+    /** @test */
+    public function a_thread_can_add_a_reply()
+    {
+        $this->thread->addReply([
+            'body' => 'Foobar',
+            'user_id' => 1
+        ]);
+
+        $this->assertCount(1, $this->thread->replies);
+    }
+
+    /** @test */
+    function a_thread_belongs_to_a_channel()
+    {
+        $thread = create('App\Thread');
+
+        $this->assertInstanceOf('App\Channel', $thread->channel);
     }
 
     /** @test */
     function a_thread_can_be_subscribed_to()
     {
-        $thread = create(Thread::class);
-        $userId = 1;
-        $thread->subscribe($userId);
-        $this->assertEquals(1,$thread->subscriptions()->whereUserId($userId)->count());
+        $thread = create('App\Thread');
+
+        $thread->subscribe($userId = 1);
+
+        $this->assertEquals(
+            1,
+            $thread->subscriptions()->where('user_id', $userId)->count()
+        );
     }
 
     /** @test */
-    function a_thread_can_be_sunsubscribed_from()
+    function a_thread_can_be_unsubscribed_from()
     {
-        $thread = create(Thread::class);
-        $userId = 1;
-        $thread->subscribe($userId);
+        $thread = create('App\Thread');
+
+        $thread->subscribe($userId = 1);
+
         $thread->unsubscribe($userId);
-        $this->assertCount(0,$thread->subscriptions);
+
+        $this->assertCount(0, $thread->subscriptions);
+    }
+
+    /** @test */
+    function it_knows_if_the_authenticated_user_is_subscribed_to_it()
+    {
+        $thread = create('App\Thread');
+
+        $this->signIn();
+
+        $this->assertFalse($thread->isSubscribedTo);
+
+        $thread->subscribe();
+
+        $this->assertTrue($thread->isSubscribedTo);
     }
 }

@@ -1,47 +1,24 @@
 <?php
 
-namespace Forum\Policies;
+namespace App\Policies;
 
-use Forum\User;
-use Forum\Thread;
+use App\Thread;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ThreadPolicy
 {
     use HandlesAuthorization;
 
-	/**
-	 * Determine whether the user can update the thread.
-	 *
-	 * @param  \Forum\User  $user
-	 * @param  \Forum\Thread  $thread
-	 * @return mixed
-	 */
-	public function update(User $user, Thread $thread)
-	{
-		return $thread->user_id == $user->id;
-	}
-    //
-    ///**
-    // * Determine whether the user can view the thread.
-    // *
-    // * @param  \Forum\User  $user
-    // * @param  \Forum\Thread  $thread
-    // * @return mixed
-    // */
-    //public function view(User $user, Thread $thread)
-    //{
-    //    //
-    //}
-    //
-    ///**
-    // * Determine whether the user can create threads.
-    // *
-    // * @param  \Forum\User  $user
-    // * @return mixed
-    // */
-    //public function create(User $user)
-    //{
-    //    //
-    //}
+    /**
+     * Determine whether the user can update the thread.
+     *
+     * @param  \App\User   $user
+     * @param  \App\Thread $thread
+     * @return mixed
+     */
+    public function update(User $user, Thread $thread)
+    {
+        return $thread->user_id == $user->id;
+    }
 }

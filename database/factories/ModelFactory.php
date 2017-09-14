@@ -12,20 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use Forum\Channel;
-use Forum\User;
-use Forum\Thread;
-use Forum\Reply;
-
-$factory->define(Channel::class, function (Faker\Generator $faker) {
-    $name = $faker->word;
-
-    return [
-        'name' => $name,
-        'slug' => $name,
-    ];
-});
-$factory->define(User::class, function (Faker\Generator $faker) {
+$factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -36,26 +23,38 @@ $factory->define(User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Thread::class, function (Faker\Generator $faker) {
+
+$factory->define(App\Thread::class, function ($faker) {
     return [
         'user_id' => function () {
-            return factory(User::class)->create()->id;
+            return factory('App\User')->create()->id;
         },
         'channel_id' => function () {
-            return factory(Channel::class)->create()->id;
+            return factory('App\Channel')->create()->id;
         },
         'title' => $faker->sentence,
-        'body' => $faker->paragraph,
+        'body'  => $faker->paragraph
     ];
 });
-$factory->define(Reply::class, function (Faker\Generator $faker) {
+
+$factory->define(App\Channel::class, function ($faker) {
+    $name = $faker->word;
+
+    return [
+        'name' => $name,
+        'slug' => $name
+    ];
+});
+
+
+$factory->define(App\Reply::class, function ($faker) {
     return [
         'thread_id' => function () {
-            return factory(Thread::class)->create()->id;
+            return factory('App\Thread')->create()->id;
         },
         'user_id' => function () {
-            return factory(User::class)->create()->id;
+            return factory('App\User')->create()->id;
         },
-        'body' => $faker->paragraph,
+        'body'  => $faker->paragraph
     ];
 });

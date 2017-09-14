@@ -7,20 +7,19 @@
                 <div class="page-header">
                     <h1>
                         {{ $profileUser->name }}
-                        <small>Since {{ $profileUser->created_at->diffForHumans() }}</small>
                     </h1>
                 </div>
-                @forelse($activities as $date => $activity)
-                    <div class="page-header">
-                        <h3>{{$date}}</h3>
-                    </div>
-                    @foreach($activity as $a)
-                        @if(view()->exists("profiles.activities.{$a->type}"))
-                            @include("profiles.activities.$a->type")
+
+                @forelse ($activities as $date => $activity)
+                    <h3 class="page-header">{{ $date }}</h3>
+
+                    @foreach ($activity as $record)
+                        @if (view()->exists("profiles.activities.{$record->type}"))
+                            @include ("profiles.activities.{$record->type}", ['activity' => $record])
                         @endif
                     @endforeach
                 @empty
-                    <p>No activity for this user yet</p>
+                    <p>There is no activity for this user yet.</p>
                 @endforelse
             </div>
         </div>

@@ -2,27 +2,32 @@
 
 namespace Tests\Feature;
 
-use Forum\Thread;
-use Forum\User;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ProfilesTest extends TestCase
 {
-	/** @test */
-	function a_user_has_a_profile()
-	{
-		$user = create(User::class);
-		$this->get("/profiles/$user->name")
-			->assertSee($user->name);
-	}
+    use DatabaseMigrations;
 
-	/** @test */
-	function a_users_profile_displays_threads_they_posted()
-	{
-		$this->signIn();
-		$thread = create(Thread::class,['user_id' => auth()->id()]);
-		$this->get('/profiles/'.auth()->user()->name)
-		     ->assertSee($thread->title)
-		     ->assertSee( $thread->body);
-	}
+    /** @test */
+    function a_user_has_a_profile()
+    {
+        $user = create('App\User');
+
+        $this->get("/profiles/{$user->name}")
+            ->assertSee($user->name);
+    }
+
+    /** @test */
+    function profiles_display_all_threads_created_by_the_associated_user()
+    {
+        $this->signIn();
+
+        $thread = create('App\Thread', ['user_id' => auth()->id()]);
+
+        $this->get("/profiles/" . auth()->user()->name)
+            ->assertSee($thread->title)
+            ->assertSee($thread->body);
+
+    }
 }

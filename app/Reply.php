@@ -1,66 +1,77 @@
 <?php
 
-namespace Forum;
+namespace App;
 
-use Forum\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Forum\Reply.
- *
- * @mixin \Eloquent
- * @property int              $id
- * @property int              $thread_id
- * @property int              $user_id
- * @property string           $body
- * @property \Carbon\Carbon   $created_at
- * @property \Carbon\Carbon   $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Forum\Reply whereBody( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Reply whereCreatedAt( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Reply whereId( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Reply whereThreadId( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Reply whereUpdatedAt( $value )
- * @method static \Illuminate\Database\Query\Builder|\Forum\Reply whereUserId( $value )
- * @property-read \Forum\User $owner
- * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Activity[] $activity
- * @property-read \Illuminate\Database\Eloquent\Collection|\Forum\Favorite[] $favorites
- * @property-read mixed $favorites_count
- * @property-read \Forum\Thread $thread
- */
 class Reply extends Model
 {
     use Favoritable, RecordsActivity;
 
+    /**
+     * Don't auto-apply mass assignment protection.
+     *
+     * @var array
+     */
     protected $guarded = [];
 
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
     protected $with = ['owner', 'favorites'];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
     protected $appends = ['favoritesCount', 'isFavorited'];
 
-	protected static function boot()
-	{
-		parent::boot();
-		static::created(function ($r) {
-			$r->thread->increment('replies_count');
-		});
-		static::deleted(function ($r) {
-			$r->thread->decrement('replies_count');
-		});
-	}
+    /**
+     * Boot the reply instance.
+     */
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::created(function ($reply) {
+            $reply->thread->increment('replies_count');
+        });
 
+        static::deleted(function ($reply) {
+            $reply->thread->decrement('replies_count');
+        });
+    }
+
+    /**
+     * A reply has an owner.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * A reply belongs to a thread.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function thread()
     {
-    	return $this->belongsTo( Thread::class);
+        return $this->belongsTo(Thread::class);
     }
 
+    /**
+     * Determine the path to the reply.
+     *
+     * @return string
+     */
     public function path()
     {
-    	return $this->thread->path()."#reply-{$this->id}";
+        return $this->thread->path() . "#reply-{$this->id}";
     }
 }

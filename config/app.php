@@ -1,9 +1,5 @@
 <?php
 
-use Barryvdh\Debugbar\ServiceProvider;
-use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
-use Orangehill\Iseed\IseedServiceProvider;
-
 return [
 
     /*
@@ -16,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'laravel'),
+    'name' => 'Forum',
 
     /*
     |--------------------------------------------------------------------------
@@ -175,11 +171,11 @@ return [
         /*
          * Application Service Providers...
          */
-        Forum\Providers\AppServiceProvider::class,
-        Forum\Providers\AuthServiceProvider::class,
-        // Forum\Providers\BroadcastServiceProvider::class,
-        Forum\Providers\EventServiceProvider::class,
-        Forum\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
     ],
 
