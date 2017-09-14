@@ -4,6 +4,7 @@ namespace Forum;
 
 use Forum\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
+use \Forum\ThreadSubscription;
 
 /**
  * Forum\Thread.
@@ -83,4 +84,22 @@ class Thread extends Model
         return $this->replies()->count();
     }
 
+    public function subscribe($userId = null)
+    {
+        $this->subscriptions()->create([
+            'user_id' => $userId ?: auth()->id()
+        ]);
+    }
+
+    public function unsubscribe($userId = null)
+    {
+        $this->subscriptions()
+            ->whereUserId($userId ?: auth()->id())
+            ->delete();
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(ThreadSubscription::class);
+    }
 }
