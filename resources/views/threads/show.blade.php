@@ -44,6 +44,9 @@
                             <a href="#">{{ $thread->creator->name }}</a>,
                             and currently has {{ $thread->replies_count }} {{str_plural('comment',$thread->replies_count)}}.
                         </p>
+                        <p>
+                            <subscribe-button></subscribe-button>
+                        </p>
                     </div>
                 </div>
             </div>
