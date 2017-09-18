@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\ThreadHasNewReply;
 use App\Filters\ThreadFilters;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Builder;
@@ -121,9 +122,7 @@ class Thread extends Model
     public function addReply($reply)
     {
         $reply = $this->replies()->create($reply);
-        $this->subscriptions->filter(function($sub) use ($reply){
-            return $sub->user_id != $reply->user_id;
-        })->each->notify($reply);
+        $this->notifySubscribers($reply);
         return $reply;
     }
 
@@ -185,5 +184,13 @@ class Thread extends Model
         return $this->subscriptions()
             ->where('user_id', auth()->id())
             ->exists();
+    }
+
+    public function notifySubscribers($reply)
+    {
+        $this->subscriptions
+            ->where('user_id','!=',$reply->user_id)
+            ->each
+            ->notify($reply);
     }
 }
