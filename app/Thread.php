@@ -3,9 +3,38 @@
 namespace App;
 
 use App\Filters\ThreadFilters;
+use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Thread
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $channel_id
+ * @property int $replies_count
+ * @property string $title
+ * @property string $body
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Activity[] $activity
+ * @property-read \App\Channel $channel
+ * @property-read \App\User $creator
+ * @property-read bool $is_subscribed_to
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reply[] $replies
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\ThreadSubscription[] $subscriptions
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread filter(\App\Filters\ThreadFilters $filters)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereBody($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereChannelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereRepliesCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Thread extends Model
 {
     use RecordsActivity;
@@ -91,7 +120,11 @@ class Thread extends Model
      */
     public function addReply($reply)
     {
-        return $this->replies()->create($reply);
+        $reply = $this->replies()->create($reply);
+        $this->subscriptions->filter(function($sub) use ($reply){
+            return $sub->user_id != $reply->user_id;
+        })->each->notify($reply);
+        return $reply;
     }
 
     /**
@@ -110,12 +143,14 @@ class Thread extends Model
      * Subscribe a user to the current thread.
      *
      * @param int|null $userId
+     * @return \App\Thread
      */
     public function subscribe($userId = null)
     {
         $this->subscriptions()->create([
             'user_id' => $userId ?: auth()->id()
         ]);
+        return $this;
     }
 
     /**
