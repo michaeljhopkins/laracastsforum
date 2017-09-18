@@ -16466,7 +16466,6 @@ __webpack_require__(128);
 Vue.component('flash', __webpack_require__(152));
 Vue.component('paginator', __webpack_require__(160));
 Vue.component('thread-view', __webpack_require__(163));
-
 Vue.component('user-notifications', __webpack_require__(182));
 
 var app = new Vue({
@@ -57966,9 +57965,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 159 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: Cannot find module './lib/beautify'\n    at Function.Module._resolveFilename (module.js:527:15)\n    at Function.Module._load (module.js:476:23)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at /Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:74:27\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:80:7)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/lib/template-compiler/index.js:4:16)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at NormalModule.doBuild (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:149:10)\n    at factoryCallback (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:337:12)\n    at factory (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:241:5)\n    at applyPluginsAsyncWaterfall (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:94:13)");
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.show),
+      expression: "show"
+    }],
+    staticClass: "alert alert-success alert-flash",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('strong', [_vm._v("Success!")]), _vm._v(" " + _vm._s(_vm.body) + "\n")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-1bb54ffb", module.exports)
+  }
+}
 
 /***/ }),
 /* 160 */
@@ -58073,9 +58092,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 162 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: Cannot find module './lib/beautify'\n    at Function.Module._resolveFilename (module.js:527:15)\n    at Function.Module._load (module.js:476:23)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at /Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:74:27\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:80:7)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/lib/template-compiler/index.js:4:16)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at NormalModule.doBuild (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:149:10)\n    at factoryCallback (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:337:12)\n    at factory (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:241:5)\n    at applyPluginsAsyncWaterfall (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:94:13)");
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return (_vm.shouldPaginate) ? _c('ul', {
+    staticClass: "pagination"
+  }, [_c('li', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.prevUrl),
+      expression: "prevUrl"
+    }]
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "aria-label": "Previous",
+      "rel": "prev"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.page--
+      }
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("« Previous")])])]), _vm._v(" "), _c('li', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.nextUrl),
+      expression: "nextUrl"
+    }]
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "aria-label": "Next",
+      "rel": "next"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.page++
+      }
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("Next »")])])])]) : _vm._e()
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-477baa1c", module.exports)
+  }
+}
 
 /***/ }),
 /* 163 */
@@ -58480,9 +58556,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 171 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: Cannot find module './lib/beautify'\n    at Function.Module._resolveFilename (module.js:527:15)\n    at Function.Module._load (module.js:476:23)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at /Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:74:27\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:80:7)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/lib/template-compiler/index.js:4:16)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at NormalModule.doBuild (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:149:10)\n    at factoryCallback (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:337:12)\n    at factory (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:241:5)\n    at applyPluginsAsyncWaterfall (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:94:13)");
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    class: _vm.classes,
+    attrs: {
+      "type": "submit"
+    },
+    on: {
+      "click": _vm.toggle
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-heart"
+  }), _vm._v(" "), _c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.count)
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-01bf603e", module.exports)
+  }
+}
 
 /***/ }),
 /* 172 */
@@ -58738,9 +58837,95 @@ webpackContext.id = 172;
 
 /***/ }),
 /* 173 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: Cannot find module './lib/beautify'\n    at Function.Module._resolveFilename (module.js:527:15)\n    at Function.Module._load (module.js:476:23)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at /Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:74:27\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:80:7)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/lib/template-compiler/index.js:4:16)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at NormalModule.doBuild (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:149:10)\n    at factoryCallback (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:337:12)\n    at factory (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:241:5)\n    at applyPluginsAsyncWaterfall (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:94:13)");
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel panel-default",
+    attrs: {
+      "id": 'reply-' + _vm.id
+    }
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_c('div', {
+    staticClass: "level"
+  }, [_c('h5', {
+    staticClass: "flex"
+  }, [_c('a', {
+    attrs: {
+      "href": '/profiles/' + _vm.data.owner.name
+    },
+    domProps: {
+      "textContent": _vm._s(_vm.data.owner.name)
+    }
+  }), _vm._v(" said "), _c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.ago)
+    }
+  })]), _vm._v(" "), (_vm.signedIn) ? _c('div', [_c('favorite', {
+    attrs: {
+      "reply": _vm.data
+    }
+  })], 1) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [(_vm.editing) ? _c('div', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.body),
+      expression: "body"
+    }],
+    staticClass: "form-control",
+    domProps: {
+      "value": (_vm.body)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.body = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-xs btn-primary",
+    on: {
+      "click": _vm.update
+    }
+  }, [_vm._v("Update")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-xs btn-link",
+    on: {
+      "click": function($event) {
+        _vm.editing = false
+      }
+    }
+  }, [_vm._v("Cancel")])]) : _c('div', {
+    domProps: {
+      "textContent": _vm._s(_vm.body)
+    }
+  })]), _vm._v(" "), (_vm.canUpdate) ? _c('div', {
+    staticClass: "panel-footer level"
+  }, [_c('button', {
+    staticClass: "btn btn-xs mr-1",
+    on: {
+      "click": function($event) {
+        _vm.editing = true
+      }
+    }
+  }, [_vm._v("Edit")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-xs btn-danger mr-1",
+    on: {
+      "click": _vm.destroy
+    }
+  }, [_vm._v("Delete")])]) : _vm._e()])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-463d65f5", module.exports)
+  }
+}
 
 /***/ }),
 /* 174 */
@@ -58847,9 +59032,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 176 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: Cannot find module './lib/beautify'\n    at Function.Module._resolveFilename (module.js:527:15)\n    at Function.Module._load (module.js:476:23)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at /Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:74:27\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:80:7)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/lib/template-compiler/index.js:4:16)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at NormalModule.doBuild (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:149:10)\n    at factoryCallback (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:337:12)\n    at factory (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:241:5)\n    at applyPluginsAsyncWaterfall (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:94:13)");
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [(_vm.signedIn) ? _c('div', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.body),
+      expression: "body"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "name": "body",
+      "id": "body",
+      "placeholder": "Have something to say?",
+      "rows": "5",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.body)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.body = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "submit"
+    },
+    on: {
+      "click": _vm.addReply
+    }
+  }, [_vm._v("Post")])]) : _c('p', {
+    staticClass: "text-center"
+  }, [_vm._v("\n        Please "), _c('a', {
+    attrs: {
+      "href": "/login"
+    }
+  }, [_vm._v("sign in")]), _vm._v(" to participate in this\n        discussion.\n    ")])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-4fcee722", module.exports)
+  }
+}
 
 /***/ }),
 /* 177 */
@@ -58880,9 +59114,42 @@ throw new Error("Module build failed: Error: Cannot find module './lib/beautify'
 
 /***/ }),
 /* 178 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: Cannot find module './lib/beautify'\n    at Function.Module._resolveFilename (module.js:527:15)\n    at Function.Module._load (module.js:476:23)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at /Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:74:27\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:80:7)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/lib/template-compiler/index.js:4:16)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at NormalModule.doBuild (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:149:10)\n    at factoryCallback (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:337:12)\n    at factory (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:241:5)\n    at applyPluginsAsyncWaterfall (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:94:13)");
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_vm._l((_vm.items), function(reply, index) {
+    return _c('div', {
+      key: reply.id
+    }, [_c('reply', {
+      attrs: {
+        "data": reply
+      },
+      on: {
+        "deleted": function($event) {
+          _vm.remove(index)
+        }
+      }
+    })], 1)
+  }), _vm._v(" "), _c('paginator', {
+    attrs: {
+      "dataSet": _vm.dataSet
+    },
+    on: {
+      "changed": _vm.fetch
+    }
+  }), _vm._v(" "), _c('new-reply', {
+    on: {
+      "created": _vm.add
+    }
+  })], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-88af575a", module.exports)
+  }
+}
 
 /***/ }),
 /* 179 */
@@ -58955,9 +59222,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 181 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: Cannot find module './lib/beautify'\n    at Function.Module._resolveFilename (module.js:527:15)\n    at Function.Module._load (module.js:476:23)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at /Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:74:27\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:80:7)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/lib/template-compiler/index.js:4:16)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at NormalModule.doBuild (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:149:10)\n    at factoryCallback (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:337:12)\n    at factory (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:241:5)\n    at applyPluginsAsyncWaterfall (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:94:13)");
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    class: _vm.classes,
+    on: {
+      "click": _vm.subscribe
+    }
+  }, [_vm._v("Subscribe")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-13354767", module.exports)
+  }
+}
 
 /***/ }),
 /* 182 */
@@ -59018,6 +59299,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -59026,7 +59310,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created: function created() {
-        axios.get("/profiles/" + window.App.user.name + "/notifications");
+        var _this = this;
+
+        axios.get("/profiles/" + window.App.user.name + "/notifications").then(function (response) {
+            return _this.notifications = response.data;
+        });
     },
 
     methods: {
@@ -59038,9 +59326,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 184 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: Cannot find module './lib/beautify'\n    at Function.Module._resolveFilename (module.js:527:15)\n    at Function.Module._load (module.js:476:23)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at /Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:74:27\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/node_modules/js-beautify/js/index.js:80:7)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/vue-loader/lib/template-compiler/index.js:4:16)\n    at Module._compile (module.js:624:30)\n    at Object.Module._extensions..js (module.js:635:10)\n    at Module.load (module.js:545:32)\n    at tryModuleLoad (module.js:508:12)\n    at Function.Module._load (module.js:500:3)\n    at Module.require (module.js:568:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at NormalModule.doBuild (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:149:10)\n    at factoryCallback (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/Compilation.js:337:12)\n    at factory (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:241:5)\n    at applyPluginsAsyncWaterfall (/Users/michaelhopkins/Projects/Web/laracastsforum/node_modules/webpack/lib/NormalModuleFactory.js:94:13)");
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return (_vm.notifications.length) ? _c('li', {
+    staticClass: "dropdown"
+  }, [_vm._m(0), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu"
+  }, _vm._l((_vm.notifications), function(notification) {
+    return _c('li', [_c('a', {
+      attrs: {
+        "href": notification.data.link
+      },
+      domProps: {
+        "textContent": _vm._s(notification.data.message)
+      },
+      on: {
+        "click": function($event) {
+          _vm.markAsRead(notification)
+        }
+      }
+    })])
+  }))]) : _vm._e()
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "dropdown-toggle",
+    attrs: {
+      "href": "#",
+      "data-toggle": "dropdown"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-bell"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-f867b030", module.exports)
+  }
+}
 
 /***/ }),
 /* 185 */
