@@ -2,9 +2,9 @@
 
 namespace App;
 
-use App\Events\ThreadHasNewReply;
 use App\Filters\ThreadFilters;
-use App\Notifications\ThreadWasUpdated;
+use Auth;
+use Cache;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -192,5 +192,12 @@ class Thread extends Model
             ->where('user_id','!=',$reply->user_id)
             ->each
             ->notify($reply);
+    }
+
+    public function hasUpdatesFor($user = null)
+    {
+        $user = $user ?: Auth::user();
+        $key = $user->visitedThreadCacheKey($this);
+        return $this->updated_at > Cache::get($key);
     }
 }
