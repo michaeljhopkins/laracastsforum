@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Reply;
+use App\Thread;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -97,5 +99,17 @@ class ParticipateInThreadsTest extends TestCase
         $this->patch("/replies/{$reply->id}", ['body' => $updatedReply]);
 
         $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => $updatedReply]);
+    }
+
+    /** @test */
+    function replies_that_contain_spam_may_not_be_created()
+    {
+        $this->signIn();
+        $thread = create(Thread::class);
+        $reply = make(Reply::class,[
+            'body' => 'yahoo customer support'
+        ]);
+        $this->expectException(\Exception::class);
+        $this->post($thread->path() . '/replies', $reply->toArray());
     }
 }
