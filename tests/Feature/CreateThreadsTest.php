@@ -40,14 +40,14 @@ class CreateThreadsTest extends TestCase
     function a_thread_requires_a_title()
     {
         $this->publishThread(['title' => null])
-            ->assertSessionHasErrors('title');
+            ->assertStatus(422);
     }
 
     /** @test */
     function a_thread_requires_a_body()
     {
         $this->publishThread(['body' => null])
-            ->assertSessionHasErrors('body');
+            ->assertStatus(422);
     }
 
     /** @test */
@@ -56,10 +56,10 @@ class CreateThreadsTest extends TestCase
         factory('App\Channel', 2)->create();
 
         $this->publishThread(['channel_id' => null])
-            ->assertSessionHasErrors('channel_id');
+            ->assertStatus(422);
 
         $this->publishThread(['channel_id' => 999])
-            ->assertSessionHasErrors('channel_id');
+            ->assertStatus(422);
     }
 
     /** @test */

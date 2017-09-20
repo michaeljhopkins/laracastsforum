@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Forms\CreatePostForm;
 use App\Reply;
 use App\Thread;
 
@@ -31,32 +32,23 @@ class RepliesController extends Controller
      *
      * @param  integer $channelId
      * @param  Thread $thread
-     * @param \App\Spam $spam
-     * @return \Illuminate\Http\RedirectResponse
+     * @param \App\Http\Forms\CreatePostForm $form
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function store($channelId, Thread $thread)
+    public function store($channelId, Thread $thread, CreatePostForm $form)
     {
-        if (\Gate::denies('create',new Reply)) {
-            return response(
-                'You can not reply so soon', 422
-            );
-        }
-        try {
-            request()->validate(['body' => 'required|spamfree']);
-            $reply = $thread->addReply([
-                'body' => request('body'),
-                'user_id' => auth()->id()
-            ]);
-        } catch(\Exception $e) {
-            return response('Sorry, your reply could not be saved',422);
-        }
-        return $reply->load('owner');
+        return $thread->addReply([
+            'body' => request('body'),
+            'user_id' => auth()->id()
+        ])->load('owner');
     }
 
     /**
      * Update an existing reply.
      *
      * @param Reply $reply
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Reply $reply)
     {

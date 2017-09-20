@@ -1,11 +1,19 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Forms;
 
+use App\Exceptions\ThrottleException;
+use App\Reply;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Thread;
 
 class CreatePostForm extends FormRequest
 {
+    protected function failedAuthorization()
+    {
+        throw new ThrottleException('Too fast son');
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +21,7 @@ class CreatePostForm extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return \Gate::allows('create',new Reply);
     }
 
     /**
@@ -24,7 +32,7 @@ class CreatePostForm extends FormRequest
     public function rules()
     {
         return [
-            //
+            'body' => 'required|spamfree'
         ];
     }
 }
