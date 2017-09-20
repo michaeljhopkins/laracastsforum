@@ -21,8 +21,9 @@ class RepliesController extends Controller
     /**
      * Fetch all relevant replies.
      *
-     * @param int    $channelId
+     * @param int $channelId
      * @param Thread $thread
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function index($channelId, Thread $thread)
     {
@@ -77,17 +78,16 @@ class RepliesController extends Controller
      *
      * @param  Reply $reply
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Reply $reply)
     {
         $this->authorize('update', $reply);
-
         $reply->delete();
-
         if (request()->expectsJson()) {
             return response(['status' => 'Reply deleted']);
         }
-
         return back();
     }
 }
