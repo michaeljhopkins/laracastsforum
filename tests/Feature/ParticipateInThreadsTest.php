@@ -36,7 +36,7 @@ class ParticipateInThreadsTest extends TestCase
         $this->withExceptionHandling()->signIn();
         $thread = create('App\Thread');
         $reply = make('App\Reply', ['body' => null]);
-        $this->post($thread->path() . '/replies', $reply->toArray())
+        $this->json('post',$thread->path() . '/replies', $reply->toArray())
             ->assertStatus(422);
     }
 
@@ -93,7 +93,7 @@ class ParticipateInThreadsTest extends TestCase
         $reply = make(Reply::class,[
             'body' => 'yahoo customer support'
         ]);
-        $this->post($thread->path() . '/replies', $reply->toArray())
+        $this->json('post',$thread->path() . '/replies', $reply->toArray())
             ->assertStatus(422);
     }
 
@@ -106,9 +106,9 @@ class ParticipateInThreadsTest extends TestCase
         $reply = make(Reply::class, [
             'body' => 'My simple reply'
         ]);
-        $this->post($thread->path() . '/replies', $reply->toArray())
+        $this->json('post',$thread->path() . '/replies', $reply->toArray())
         ->assertStatus(200);
-        $this->post($thread->path() . '/replies', $reply->toArray())
+        $this->json('post',$thread->path() . '/replies', $reply->toArray())
             ->assertStatus(429);
     }
 }
