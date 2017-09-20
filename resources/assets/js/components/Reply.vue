@@ -7,7 +7,6 @@
                         v-text="data.owner.name">
                     </a> said <span v-text="ago"></span>
                 </h5>
-
                 <div v-if="signedIn">
                     <favorite :reply="data"></favorite>
                 </div>
@@ -19,14 +18,11 @@
                 <div class="form-group">
                     <textarea class="form-control" v-model="body"></textarea>
                 </div>
-
                 <button class="btn btn-xs btn-primary" @click="update">Update</button>
                 <button class="btn btn-xs btn-link" @click="editing = false">Cancel</button>
             </div>
-
             <div v-else v-text="body"></div>
         </div>
-
         <div class="panel-footer level" v-if="canUpdate">
             <button class="btn btn-xs mr-1" @click="editing = true">Edit</button>
             <button class="btn btn-xs btn-danger mr-1" @click="destroy">Delete</button>
@@ -67,9 +63,13 @@
 
         methods: {
             update() {
-                axios.patch('/replies/' + this.data.id, {
-                    body: this.body
-                });
+                axios.patch(
+                    '/replies/' + this.data.id, {
+                        body: this.body
+                    })
+                    .catch(error => {
+                        flash(error.response.data, 'danger');
+                    });
 
                 this.editing = false;
 
