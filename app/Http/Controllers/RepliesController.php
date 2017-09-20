@@ -36,6 +36,11 @@ class RepliesController extends Controller
      */
     public function store($channelId, Thread $thread)
     {
+        if (\Gate::denies('create',new Reply)) {
+            return response(
+                'You can not reply so soon', 422
+            );
+        }
         try {
             request()->validate(['body' => 'required|spamfree']);
             $reply = $thread->addReply([
