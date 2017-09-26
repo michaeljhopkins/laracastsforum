@@ -14,7 +14,7 @@
         data() {
             return {
                 body: '',
-                level: 'success'
+                level: 'success',
                 show: false
             }
         },

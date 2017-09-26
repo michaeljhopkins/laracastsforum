@@ -28,11 +28,9 @@ class ThreadsController extends Controller
     public function index(Channel $channel, ThreadFilters $filters)
     {
         $threads = $this->getThreads($channel, $filters);
-
         if (request()->wantsJson()) {
             return $threads;
         }
-
         return view('threads.index', compact('threads'));
     }
 
@@ -54,22 +52,17 @@ class ThreadsController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
+        $request->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
             'channel_id' => 'required|exists:channels,id'
         ]);
-
         $thread = Thread::create([
             'user_id' => auth()->id(),
             'channel_id' => request('channel_id'),
             'title' => request('title'),
             'body' => request('body')
         ]);
-        if (request()->wantsJson()) {
-            return response($thread, 201);
-        }
-
         return redirect($thread->path())
             ->with('flash', 'Your thread has been published!');
     }
@@ -101,13 +94,7 @@ class ThreadsController extends Controller
     public function destroy($channel, Thread $thread)
     {
         $this->authorize('update', $thread);
-
         $thread->delete();
-
-        if (request()->wantsJson()) {
-            return response([], 204);
-        }
-
         return redirect('/threads');
     }
 
@@ -121,11 +108,9 @@ class ThreadsController extends Controller
     protected function getThreads(Channel $channel, ThreadFilters $filters)
     {
         $threads = Thread::latest()->filter($filters);
-
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
         }
-
         return $threads->get();
     }
 }
