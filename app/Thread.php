@@ -8,6 +8,7 @@ use Auth;
 use Cache;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Redis;
 
 /**
  * App\Thread
@@ -39,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Thread extends Model
 {
-    use RecordsActivity;
+    use RecordsActivity, RecordsVisits;
 
     /**
      * Don't auto-apply mass assignment protection.

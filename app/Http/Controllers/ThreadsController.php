@@ -86,6 +86,7 @@ class ThreadsController extends Controller
             Auth::user()->read($thread);
         }
         $trending->push($thread);
+        $thread->recordVisit();
         return view('threads.show', compact('thread'));
     }
 
