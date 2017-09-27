@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <h1 v-text="user.name"></h1>
-        <form v-if="canUpdate" method="POST" enctype="multipart/form-data">
-            <image-upload name="avatar" class="mr-1" @loaded="onLoad"></image-upload>
-        </form>
+    <div class="level" class="mr-1">
         <img :src="avatar" width="125" height="125">
+        <h1 v-text="user.name"></h1>
     </div>
+    <form v-if="canUpdate" method="POST" enctype="multipart/form-data">
+        <image-upload name="avatar" class="mr-1" @loaded="onLoad"></image-upload>
+    </form>
 </template>
 
 <script>
