@@ -8,7 +8,6 @@ use Auth;
 use Cache;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Redis;
 
 /**
  * App\Thread
@@ -40,7 +39,7 @@ use Illuminate\Support\Facades\Redis;
  */
 class Thread extends Model
 {
-    use RecordsActivity, RecordsVisits;
+    use RecordsActivity;
 
     /**
      * Don't auto-apply mass assignment protection.
@@ -193,5 +192,10 @@ class Thread extends Model
         $user = $user ?: Auth::user();
         $key = $user->visitedThreadCacheKey($this);
         return $this->updated_at > Cache::get($key);
+    }
+
+    public function visits()
+    {
+        return new Visits($this);
     }
 }
