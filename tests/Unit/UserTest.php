@@ -23,8 +23,8 @@ class UserTest extends TestCase
     function a_user_can_determine_their_avatar_path()
     {
         $user = create(User::class);
-        $this->assertEquals(asset('avatars/default.jpg'), $user->avatar());
-        $user->avatar_path = asset('avatars/me.jpg');
-        $this->assertEquals(asset('avatars/me.jpg'), $user->avatar());
+        $this->assertEquals(asset('avatars/default.jpg'), $user->avatar_path);
+        $user->avatar_path = 'avatars/me.jpg';
+        $this->assertEquals(asset('avatars/me.jpg'), $user->avatar_path);
     }
 }
