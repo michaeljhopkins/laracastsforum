@@ -5,7 +5,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('threads', 'ThreadsController@index');
-Route::get('threads/create', 'ThreadsController@create');
+Route::get('thread/create', 'ThreadsController@create');
 Route::get('threads/{channel}/{thread}', 'ThreadsController@show');
 Route::delete('threads/{channel}/{thread}', 'ThreadsController@destroy');
 Route::post('threads', 'ThreadsController@store');
@@ -22,4 +22,4 @@ Route::get('/profiles/{user}', 'ProfilesController@show')->name('profile');
 Route::get('/profiles/{user}/notifications', 'UserNotificationsController@index');
 Route::delete('/profiles/{user}/notifications/{notification}', 'UserNotificationsController@destroy');
 Route::get('api/users', 'Api\UsersController@index');
-Route::post('api/users/{user}/avatar', 'Api\UserAvatarsController@store')->middleware('auth');
+Route::post('api/users/{user}/avatar', 'Api\UserAvatarsController@store')->middleware('auth')->name('avatar');

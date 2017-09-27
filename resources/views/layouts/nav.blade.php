@@ -37,7 +37,7 @@
                 </li>
 
                 <li>
-                    <a href="/threads/create">New Thread</a>
+                    <a href="/thread/create">New Thread</a>
                 </li>
 
                 <li class="dropdown">

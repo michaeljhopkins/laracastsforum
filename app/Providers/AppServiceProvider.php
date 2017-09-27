@@ -19,9 +19,9 @@ class AppServiceProvider extends ServiceProvider
             $channels = \Cache::rememberForever('channels', function () {
                 return Channel::all();
             });
-
             $view->with('channels', $channels);
         });
+
         Validator::extend('spamfree','\App\Rules\SpamFree@passes');
     }
 
