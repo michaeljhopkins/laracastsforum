@@ -29,6 +29,8 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Reply $lastReply
+ * @property string|null $avatar_path
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereAvatarPath($value)
  */
 class User extends Authenticatable
 {
