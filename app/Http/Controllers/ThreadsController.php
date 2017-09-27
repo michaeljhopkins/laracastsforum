@@ -95,6 +95,9 @@ class ThreadsController extends Controller
     {
         $this->authorize('update', $thread);
         $thread->delete();
+        if (request()->wantsJson()) {
+            return response([], 204);
+        }
         return redirect('/threads');
     }
 
@@ -111,6 +114,6 @@ class ThreadsController extends Controller
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
         }
-        return $threads->get();
+        return $threads->paginate(5);
     }
 }

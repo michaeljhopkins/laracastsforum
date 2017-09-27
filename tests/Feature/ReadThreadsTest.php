@@ -4,6 +4,9 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
+use App\Thread;
+use App\Channel;
+use App\Reply;
 
 class ReadThreadsTest extends TestCase
 {
@@ -15,7 +18,7 @@ class ReadThreadsTest extends TestCase
     {
         parent::setUp();
 
-        $this->thread = create('App\Thread');
+        $this->thread = create(Thread::class);
     }
 
     /** @test */
@@ -35,9 +38,9 @@ class ReadThreadsTest extends TestCase
     /** @test */
     function a_user_can_filter_threads_according_to_a_channel()
     {
-        $channel = create('App\Channel');
-        $threadInChannel = create('App\Thread', ['channel_id' => $channel->id]);
-        $threadNotInChannel = create('App\Thread');
+        $channel = create(Channel::class);
+        $threadInChannel = create(Thread::class, ['channel_id' => $channel->id]);
+        $threadNotInChannel = create(Thread::class);
 
         $this->get('/threads/' . $channel->slug)
             ->assertSee($threadInChannel->title)
@@ -49,8 +52,8 @@ class ReadThreadsTest extends TestCase
     {
         $this->signIn(create('App\User', ['name' => 'JohnDoe']));
 
-        $threadByJohn = create('App\Thread', ['user_id' => auth()->id()]);
-        $threadNotByJohn = create('App\Thread');
+        $threadByJohn = create(Thread::class, ['user_id' => auth()->id()]);
+        $threadNotByJohn = create(Thread::class);
 
         $this->get('threads?by=JohnDoe')
             ->assertSee($threadByJohn->title)
@@ -60,35 +63,35 @@ class ReadThreadsTest extends TestCase
     /** @test */
     function a_user_can_filter_threads_by_popularity()
     {
-        $threadWithTwoReplies = create('App\Thread');
-        create('App\Reply', ['thread_id' => $threadWithTwoReplies->id], 2);
+        $threadWithTwoReplies = create(Thread::class);
+        create(Reply::class, ['thread_id' => $threadWithTwoReplies->id], 2);
 
-        $threadWithThreeReplies = create('App\Thread');
-        create('App\Reply', ['thread_id' => $threadWithThreeReplies->id], 3);
+        $threadWithThreeReplies = create(Thread::class);
+        create(Reply::class, ['thread_id' => $threadWithThreeReplies->id], 3);
 
-        $threadWithNoReplies = $this->thread;
+        $threadWithNoReplies = $this->thread['data'];
 
         $response = $this->getJson('threads?popular=1')->json();
 
-        $this->assertEquals([3, 2, 0], array_column($response, 'replies_count'));
+        $this->assertEquals([3, 2, 0], array_column($response['data'], 'replies_count'));
     }
 
     /** @test */
     function a_user_can_filter_threads_by_those_that_are_unanswered()
     {
-        $thread = create('App\Thread');
-        create('App\Reply', ['thread_id' => $thread->id]);
+        $thread = create(Thread::class);
+        create(Reply::class, ['thread_id' => $thread->id]);
 
         $response = $this->getJson('threads?unanswered=1')->json();
 
-        $this->assertCount(1, $response);
+        $this->assertCount(1, $response['data']);
     }
 
     /** @test */
     function a_user_can_request_all_replies_for_a_given_thread()
     {
-        $thread = create('App\Thread');
-        create('App\Reply', ['thread_id' => $thread->id], 2);
+        $thread = create(Thread::class);
+        create(Reply::class, ['thread_id' => $thread->id], 2);
 
         $response = $this->getJson($thread->path() . '/replies')->json();
 
