@@ -3,6 +3,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
+Route::get('/register/confirm','RegisterConfirmationController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('threads', 'ThreadsController@index');
 Route::get('thread/create', 'ThreadsController@create');
