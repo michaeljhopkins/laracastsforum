@@ -31,6 +31,10 @@ use Illuminate\Notifications\Notifiable;
  * @property-read \App\Reply $lastReply
  * @property string|null $avatar_path
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereAvatarPath($value)
+ * @property bool $confirmed
+ * @property string|null $token
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereConfirmed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereToken($value)
  */
 class User extends Authenticatable
 {

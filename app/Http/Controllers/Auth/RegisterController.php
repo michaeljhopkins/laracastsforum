@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\PleaseConfirmYourEmail;
 use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Http\Request;
+use Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -20,7 +24,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers, DatabaseMigrations;
 
     /**
      * Where to redirect users after registration.
@@ -68,5 +72,11 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'token' => str_random(25)
         ]);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        Mail::to($user)->send(new PleaseConfirmYourEmail($user));
+        return redirect($this->redirectPath());
     }
 }

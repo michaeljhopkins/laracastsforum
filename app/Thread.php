@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereUserId($value)
  * @mixin \Eloquent
+ * @property int $visits
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereVisits($value)
  */
 class Thread extends Model
 {
