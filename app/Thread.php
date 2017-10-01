@@ -38,6 +38,8 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property int $visits
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereVisits($value)
+ * @property string $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereSlug($value)
  */
 class Thread extends Model
 {
@@ -199,5 +201,24 @@ class Thread extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function setSlugAttribute($value)
+    {
+        if (static::whereSlug($slug = str_slug($value))->exists()){
+            $slug = $this->incrementSlug($slug);
+        }
+        $this->attributes['slug'] = $slug;
+    }
+
+    private function incrementSlug($slug)
+    {
+        $max = static::whereTitle($this->title)->latest('id')->value('slug');
+        if (is_numeric($max[-1])) {
+            preg_replace_callback('/(\d+)$/',function($matches){
+                return $matches[1] + 1;
+            },$max);
+        }
+        return "{$slug}-2";
     }
 }
