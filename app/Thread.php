@@ -40,6 +40,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereVisits($value)
  * @property string $slug
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereSlug($value)
+ * @property int|null $best_reply_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Thread whereBestReplyId($value)
  */
 class Thread extends Model
 {

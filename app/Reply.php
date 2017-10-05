@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Reply whereUserId($value)
  * @mixin \Eloquent
  * @property-read \App\User $user
+ * @property-read mixed $is_best
  */
 class Reply extends Model
 {
