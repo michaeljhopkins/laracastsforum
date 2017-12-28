@@ -124,6 +124,11 @@ class Thread extends Model
         return $this->hasMany(Reply::class);
     }
 
+    public function lock()
+    {
+        $this->update(['locked' => true]);
+    }
+
     /**
      * Add a reply to the thread.
      *
