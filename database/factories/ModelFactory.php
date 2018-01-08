@@ -17,6 +17,12 @@ $factory->state(\App\User::class,'unconfirmed',function(){
     ];
 });
 
+$factory->state(\App\User::class,'admin',function(){
+    return [
+        'name' => 'JohnDoe'
+    ];
+});
+
 $factory->define(\App\Thread::class, function ($faker) {
     $title = $faker->sentence;
     return [
@@ -62,3 +68,4 @@ $factory->define(\Illuminate\Notifications\DatabaseNotification::class, function
         'data' => ['foo' => 'bar']
     ];
 });
+
