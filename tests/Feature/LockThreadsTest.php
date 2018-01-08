@@ -14,6 +14,7 @@ class LockThreadsTest extends TestCase
     /** @test */
     function once_locked_a_thread_may_not_receive_new_replies()
     {
+        $this->withExceptionHandling();
         $this->signIn();
 
         $thread = create(Thread::class);
@@ -29,6 +30,7 @@ class LockThreadsTest extends TestCase
     /** @test */
     function non_admins_cant_locke_threads()
     {
+        $this->withExceptionHandling();
         $this->signIn();
 
         $thread = create(Thread::class,['user_id' => auth()->id()]);
